@@ -1,6 +1,6 @@
 # image-gellery-unsplash-api
 
-# [Demo](https://nuxt-image-gallery-unsplash-api.vercel.app)
+# [Demo](https://cheerful-zuccutto-81d8c1.netlify.app)
 ## Build Setup
 
 ```bash
