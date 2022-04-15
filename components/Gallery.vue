@@ -10,6 +10,7 @@
       id=""
       class="rounded border w-full py-2 px-2 text-xl outline-green-400 my-4"
       @keypress.enter="$fetch"
+      placeholder="Search for image"
       v-model="search"
     />
     <div v-if="search === null">
@@ -23,8 +24,38 @@
           mx-4
         "
       >
-        <div v-for="(image, index) in images" :key="index">
-          <img class="w-full rounded-lg" :src="image.urls.full" alt="" />
+        <div class="relative" v-for="(image, index) in images" :key="index">
+          <img
+            class="w-full h-full rounded-lg"
+            :src="image.urls.full"
+            :alt="image.user.name"
+          />
+          <a
+            class="
+              absolute
+              w-auto
+              h-12
+              bottom-0
+              px-4
+              shadow-cyan-800 shadow-lg
+              rounded-lg
+              bg-blue-400
+              text-white text-xs
+              flex
+              justify-center
+              items-center
+              text-center
+              m-1
+              cursor-pointer
+              opacity-60
+              hover:opacity-100
+            "
+            :href="
+              image.links.html +
+              '/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjQ5OTk0MDY5&force=true'
+            "
+            >Download</a
+          >
         </div>
       </div>
     </div>
@@ -39,8 +70,42 @@
           mx-4
         "
       >
-        <div v-for="(image, index) in searchImage" :key="index">
-          <img class="w-full rounded-lg" :src="image.urls.full" alt="" />
+        <div
+          class="relative"
+          v-for="(image, index) in searchImage"
+          :key="index"
+        >
+          <img
+            class="w-full h-full rounded-lg"
+            :src="image.urls.full"
+            :alt="image.user.name"
+          />
+          <a
+            class="
+              absolute
+              w-auto
+              h-12
+              bottom-0
+              px-4
+              shadow-cyan-800 shadow-lg
+              rounded-lg
+              bg-blue-400
+              text-white text-xs
+              flex
+              justify-center
+              items-center
+              text-center
+              m-1
+              cursor-pointer
+              opacity-60
+              hover:opacity-100
+            "
+            :href="
+              image.links.html +
+              '/download?ixid=MnwxMjA3fDB8MXxhbGx8fHx8fHx8fHwxNjQ5OTk0MDY5&force=true'
+            "
+            >Download</a
+          >
         </div>
       </div>
     </div>
@@ -61,7 +126,7 @@ export default {
       this.isloading = true;
 
       const images = await this.$axios.get(
-        "https://api.unsplash.com/photos?client_id=net7NdcVyXVCFXaEn9obXSTUWGy6OXVX69zyFmfJ2gA"
+        `https://api.unsplash.com/photos?client_id=${process.env.unsplash_client_key}`
       );
       this.images = images.data;
       this.isloading = false;
@@ -70,7 +135,7 @@ export default {
       this.isloading = true;
 
       const images = await this.$axios.get(
-        `https://api.unsplash.com/search?query=${this.search}&client_id=net7NdcVyXVCFXaEn9obXSTUWGy6OXVX69zyFmfJ2gA`
+        `https://api.unsplash.com/search?query=${this.search}&client_id=${process.env.unsplash_client_key}`
       );
       this.searchImage = images.data.photos.results;
       this.search = "";
@@ -87,5 +152,4 @@ export default {
   },
 };
 </script>
-<style>
-</style>
+
